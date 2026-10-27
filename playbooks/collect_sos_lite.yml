@@ -1,0 +1,27 @@
+---
+- name: Collect lightweight diagnostics for Northwind RHEL hosts
+  hosts: rhel
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Capture basic host identity
+      ansible.builtin.command: hostnamectl
+      register: _hostnamectl
+      changed_when: false
+
+    - name: Capture listening ports
+      ansible.builtin.command: ss -tulpn
+      register: _ss
+      changed_when: false
+
+    - name: Write diagnostics bundle on the control node
+      ansible.builtin.copy:
+        dest: "/tmp/northwind-sos-{{ inventory_hostname }}.txt"
+        mode: "0640"
+        content: |
+          === hostnamectl ===
+          {{ _hostnamectl.stdout }}
+
+          === ss -tulpn ===
+          {{ _ss.stdout }}
+      delegate_to: localhost
