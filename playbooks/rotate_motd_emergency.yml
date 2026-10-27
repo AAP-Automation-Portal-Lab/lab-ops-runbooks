@@ -1,0 +1,17 @@
+---
+- name: Emergency MOTD update during incident
+  hosts: all
+  become: true
+  gather_facts: false
+  vars:
+    incident_id: INC000000
+    incident_message: Service degradation — see status.northwind.example
+  tasks:
+    - name: Push incident MOTD
+      ansible.builtin.copy:
+        dest: /etc/motd
+        mode: "0644"
+        content: |
+          *** NORTHWIND INCIDENT {{ incident_id }} ***
+          {{ incident_message }}
+          Contact: noc@northwind.example
