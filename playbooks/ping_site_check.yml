@@ -1,0 +1,11 @@
+---
+- name: Northwind site connectivity check
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: ICMP / SSH reachable
+      ansible.builtin.ping:
+
+    - name: Record check timestamp
+      ansible.builtin.debug:
+        msg: "Site check OK for {{ inventory_hostname }} at {{ now(utc=true, fmt='%Y-%m-%dT%H:%M:%SZ') }}"
