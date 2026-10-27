@@ -1,4 +1,7 @@
-# lab-ops-runbooks
+# Northwind Lab Ops Runbooks
 
-Northwind ops runbooks for the portal Git repositories catalog.
-Not published to Automation Hub.
+Operational playbooks and notes used by Northwind Platform / Cloud / Network
+on-call when supporting the Ansible Self-Service Automation Portal.
+
+These are **not** Galaxy collections. Prefer `northwind.*` collections for
+reusable roles; keep one-off incident playbooks here.
